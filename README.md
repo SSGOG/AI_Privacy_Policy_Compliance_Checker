@@ -2,7 +2,7 @@
 title: Compliance API
 emoji: ⚖️
 colorFrom: blue
-colorTo: navy
+colorTo: indigo
 sdk: docker
 pinned: false
 ---
