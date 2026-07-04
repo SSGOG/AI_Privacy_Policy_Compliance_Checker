@@ -29,11 +29,12 @@ class RAGPipeline:
     def _get_client(self):
         if self._client is None:
             import chromadb
+            import os
+            os.environ["ANONYMIZED_TELEMETRY"] = "false"
             try:
                 self._client = chromadb.PersistentClient(path=self.persist_dir)
             except Exception:
-                # Fallback to in-memory if persistence fails
-                self._client = chromadb.Client()
+                self._client = chromadb.EphemeralClient()
         return self._client
 
     def _get_embedder(self):
