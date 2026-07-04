@@ -5,7 +5,7 @@ python-multipart>=0.0.12
 PyJWT>=2.9.0
 
 # AI / ML
-torch --index-url https://download.pytorch.org/whl/cpu
+torch
 transformers>=4.40.0
 tokenizers>=0.19.0
 sentence-transformers>=2.7.0
