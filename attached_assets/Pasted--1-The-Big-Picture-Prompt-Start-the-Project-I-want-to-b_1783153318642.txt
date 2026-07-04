@@ -1,0 +1,74 @@
+🏗️ 1. The "Big Picture" Prompt: Start the Project
+"I want to build a web application on Replit for AI-driven compliance checking of privacy policies against multiple data protection laws (e.g., GDPR, CCPA). Its core function is to process a user's uploaded privacy policy PDF and generate a clause-level compliance report with legal explanations. The architecture must center on a fine-tuned legal language model for classification, a RAG pipeline for evidence retrieval, and SHAP/LIME for explainability."
+
+Core Libraries: streamlit, transformers, pytorch, sentence-transformers, chromadb, pypdf, shap, lime, pandas.
+
+This prompt directly addresses your project goal of moving beyond a black-box model to build a transparent, explainable system.
+
+📄 2. Code for Compliance Classification & RAG
+This is the system's central intelligence. It uses a model like LegiLM  or a fine-tuned BERT for compliance classification  and builds a RAG system to retrieve legal evidence .
+
+"Write a Python class for a RAG-based compliance classifier. The ComplianceEngine should:
+
+Load: A fine-tuned legal language model (e.g., DAOLegalAI/LegiLM or a model from the Hugging Face Hub) for NLI-based classification.
+
+Classify: Implement a classify_clause(clause_text, law) method that uses the model to determine if a policy clause is Fully Compliant, Partially Compliant, or Non-Compliant against a specific law.
+
+Retrieve: Integrate with a chromadb vector store containing embedded legal texts (GDPR, CCPA, etc.). The get_evidence(clause_text, law) method should use a sentence-transformer model to retrieve the top-k most relevant legal articles/sections and their metadata (e.g., article number, text)."
+
+🧪 3. Code for SHAP/LIME Explainability
+To make the model's decisions transparent and legally defensible, you must integrate an explainability layer. This implements the requirement for step-by-step reasoning from your specifications. Research indicates SHAP and LIME provide high legal relevance and clarity .
+
+"Implement an Explainer class using shap and lime. The explain_decision(clause_text) method should:
+
+Generate: SHAP or LIME explanations to identify words or phrases in the policy clause most influential to the model's compliance decision.
+
+Visualize: Create a visualization (e.g., a force plot or text highlight) showing the impact of each term.
+
+Structure: Return a structured dictionary containing the visualization and a textual summary of the reasoning ('The clause is considered non-compliant because...'), which will be combined with the RAG evidence."
+
+🌐 4. Prompt for the Web Application (Streamlit)
+This prompt will create the user interface as specified in your problem statement.
+
+"Build a Streamlit web application for privacy policy analysis with the following features:
+
+PDF Upload: A file uploader for user-provided privacy policies.
+
+Regulation Selection: A multi-select dropdown to choose which laws to check against (e.g., GDPR, CCPA).
+
+Clause-Segmentation & Visualization: Upon analysis, display each policy clause, a color-coded compliance status (e.g., Green for Compliant, Red for Non-Compliant), and an interactive button for details.
+
+Interactive Details: When a user clicks on a clause, a modal or expander should show the RAG-retrieved legal evidence and the SHAP/LIME visualization. This provides full transparency.
+
+Report Generation: A download button to export the entire compliance report as a PDF/CSV."
+
+🔧 5. Prompt for the RAG Data Preparation Pipeline
+This will build the "knowledge base" for your legal evidence retrieval.
+
+"Write a script to set up the RAG vector database. The script should:
+
+Parse a folder of regulation PDFs (e.g., gdpr_text.pdf, ccpa_text.pdf).
+
+Chunk the text at article/section level .
+
+Embed each chunk using a sentence-transformers model (all-MiniLM-L6-v2) and store them in chromadb with metadata for the law and article number.
+
+Create a RAGDataPrep class that can be called to initialize or update the database."
+
+💡 Key Implementation Notes
+Dataset Fine-Tuning: Fine-tune your base model on the OPP-115 corpus and its GDPR extension . This is crucial for achieving high F1-scores (recent work has achieved up to 0.99 for GDPR violation detection ).
+
+Chunk Size: When indexing legal texts for RAG, use a chunk size of around 1200 tokens to preserve contextual integrity .
+
+Model Selection: You can start with a pre-trained legal model like LegiLM or BERT , as your datasets are ideal for this task. The C3PA and OPP-115 datasets you mentioned are widely used for this exact purpose .
+
+Disclaimer: The app interface must include a prominent disclaimer that this is a research tool and does not constitute legal advice. This is a standard and essential part of such systems .
+
+🔗 Core Resources
+LegiLM Model: DAOLegalAI/LegiLM on Hugging Face 
+
+CompAt Reference Tool: A functional tool for GDPR completeness checking 
+
+Eden AI RAG Tutorial: A step-by-step guide on building a privacy policy chatbot with RAG 
+
+This setup aligns with state-of-the-art research and directly addresses your project's goal of building a transparent, explainable compliance checking system.

@@ -1,0 +1,4 @@
+- [ChromaDB firewall pin](chromadb-firewall.md) — chromadb>=1.0 is blocked; always pin <1.0 (installed: 0.6.3, API compatible)
+- [Torch/transformers uv failure](torch-uv-install.md) — uv resolver fails for torch/transformers due to Python 3.14 resolution; use python3 -m pip install directly
+- [LIME frozen hypothesis](lime-frozen-hypothesis.md) — LIME predict_fn must freeze RAG evidence before perturbations to keep hypothesis stable across LIME samples
+- [Streamlit proxy routing](streamlit-proxy-routing.md) — non-artifact workflows get no proxy route; must create a react-vite artifact then replace its artifact.toml run command with the Streamlit command using absolute path

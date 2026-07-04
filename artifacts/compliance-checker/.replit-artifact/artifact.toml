@@ -1,0 +1,18 @@
+kind = "web"
+previewPath = "/"
+title = "Compliance Checker"
+version = "1.0.0"
+id = "artifacts/compliance-checker"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20756
+
+[services.development]
+run = "cd /home/runner/workspace/compliance_app && STREAMLIT_BROWSER_GATHER_USAGE_STATS=false python3 -m streamlit run app.py --server.port $PORT --server.headless true --server.address 0.0.0.0"
+
+[services.env]
+PORT = "20756"
+BASE_PATH = "/"
