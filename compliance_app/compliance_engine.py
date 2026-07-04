@@ -40,7 +40,7 @@ class ComplianceEngine:
     - Threshold-based status mapping
     """
 
-    MODEL_NAME = "cross-encoder/nli-deberta-v3-small"
+    MODEL_NAME = "typeform/distilbert-base-uncased-mnli"
 
     def __init__(self, rag_pipeline):
         self.rag = rag_pipeline
@@ -53,9 +53,10 @@ class ComplianceEngine:
             self._classifier = pipeline(
                 "zero-shot-classification",
                 model=self.MODEL_NAME,
-                device=-1,          # CPU
+                device=-1,
                 truncation=True,
                 max_length=512,
+                model_kwargs={"low_cpu_mem_usage": True},
             )
         return self._classifier
 

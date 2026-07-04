@@ -133,7 +133,7 @@ AuthUser = Annotated[str, Depends(verify_token)]
 
 @app.on_event("startup")
 def startup() -> None:
-    _load_users()  # ensure users file is initialised
+    _load_users()
     if JWT_SECRET == "change-me-in-production":
         print("WARNING: Using default JWT_SECRET. Set JWT_SECRET in your environment.")
 

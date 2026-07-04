@@ -26,34 +26,23 @@ CHROMA_DIR = os.environ.get("CHROMA_PERSIST_DIR", "./chroma_db")
 @lru_cache(maxsize=1)
 def get_rag_pipeline():
     from rag_pipeline import RAGPipeline
-
-    rag = RAGPipeline(persist_dir=CHROMA_DIR)
-    rag.initialize()
-    return rag
+    return RAGPipeline(persist_dir=CHROMA_DIR)
 
 
 @lru_cache(maxsize=1)
 def get_compliance_engine():
     from compliance_engine import ComplianceEngine
-
-    rag = get_rag_pipeline()
-    engine = ComplianceEngine(rag)
-    try:
-        engine._get_classifier()
-    except Exception:
-        pass
-    return engine
+    return ComplianceEngine(get_rag_pipeline())
 
 
 @lru_cache(maxsize=1)
 def get_explainer():
     from explainer import Explainer
-
     return Explainer(get_compliance_engine())
 
 
 def warm_models() -> None:
-    get_compliance_engine()
+    pass  # lazy load — models load on first request to save startup RAM
 
 
 def parse_document(filename: str, raw_bytes: bytes) -> tuple[str, list[str]]:
