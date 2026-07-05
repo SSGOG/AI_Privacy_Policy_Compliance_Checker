@@ -12,7 +12,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Pre-download models at build time
 RUN python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('all-MiniLM-L6-v2')"
-RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='typeform/distilbert-base-uncased-mnli', device=-1)"
+RUN python -c "from transformers import pipeline; pipeline('zero-shot-classification', model='cross-encoder/nli-deberta-v3-small', device=-1)"
 
 COPY --chown=user compliance_app/ ./compliance_app/
 COPY --chown=user main.py .

@@ -40,7 +40,7 @@ class ComplianceEngine:
     - Threshold-based status mapping
     """
 
-    MODEL_NAME = "typeform/distilbert-base-uncased-mnli"
+    MODEL_NAME = "cross-encoder/nli-deberta-v3-small"
 
     def __init__(self, rag_pipeline):
         self.rag = rag_pipeline
